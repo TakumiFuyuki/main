@@ -3,7 +3,7 @@ from google.cloud import storage
 import os
 
 app = Flask(__name__)
-app.secret_key = 'super_secret_key'
+# app.secret_key = 'super_secret_key'
 
 # Google Cloud Storage の設定
 # bucket_name = 'text_upload'  # 自分のバケット名に置き換える
