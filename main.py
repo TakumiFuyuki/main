@@ -6,11 +6,11 @@ app = Flask(__name__)
 app.secret_key = 'super_secret_key'
 
 # Google Cloud Storage の設定
-bucket_name = 'text_upload'  # 自分のバケット名に置き換える
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'path/to/your/credentials.json'  # サービスアカウントキーのパスに置き換える
+# bucket_name = 'text_upload'  # 自分のバケット名に置き換える
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = 'path/to/your/credentials.json'  # サービスアカウントキーのパスに置き換える
 
 # Google Cloud Storage クライアントの初期化
-client = storage.Client()
+# client = storage.Client()
 
 @app.route('/')
 def upload_form():
