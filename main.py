@@ -35,11 +35,11 @@ def upload_file():
 
 @app.route('/list')
 def list_files():
-    blobs = bucket.list_blobs()
-    file_list = []
-    for blob in blobs:
-        if blob.name.endswith('.txt'):
-            file_list.append(blob.name)
+    # blobs = bucket.list_blobs()
+    file_list = ['おは']
+    # for blob in blobs:
+    #     if blob.name.endswith('.txt'):
+    #         file_list.append(blob.name)
 
     return render_template('list_files.html', files=file_list)
 
