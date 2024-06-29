@@ -1,16 +1,19 @@
 <!-- templates/upload.html -->
 
-<!DOCTYPE html>
-<html lang="ja">
+<!doctype html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>テキストファイル提出フォーム</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload a text file</title>
 </head>
 <body>
+    <h1>Upload a text file</h1>
     <form action="/upload" method="post" enctype="multipart/form-data">
-        <label for="file">テキストファイルを選択してください:</label>
-        <input type="file" id="file" name="file" accept=".txt">
-        <button type="submit">アップロード</button>
+      <input type="file" name="file" accept=".txt">
+      <input type="submit" value="Upload">
     </form>
+    <br>
+    <a href="/list">List all files</a>
 </body>
 </html>

@@ -30,8 +30,18 @@ def upload_file():
         # 一時ファイルを削除
         os.remove(file_path)
 
-        return 'ファイルがアップロードされました。'
+        return redirect(url_for('list_files'))
     return '無効なファイル形式です。'
+
+@app.route('/list')
+def list_files():
+    blobs = bucket.list_blobs()
+    file_list = []
+    for blob in blobs:
+        if blob.name.endswith('.txt'):
+            file_list.append(blob.name)
+
+    return render_template('list_files.html', files=file_list)
 
 if __name__ == '__main__':
     app.run(port=8080)
