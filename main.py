@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 app = Flask(__name__)
 
 # サービスアカウントキーの JSON ファイルのパスを指定します
-key_path = 'C:/Users/taku0/OneDrive/Desktopプ/tasks/main/service_account_key.json'
+key_path = 'C:/Users/taku0/OneDrive/Desktop/tasks/main/service_account_key.json'
 
 # クライアントを初期化し、認証情報を設定します
 storage_client = storage.Client.from_service_account_json(key_path)
