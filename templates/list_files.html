@@ -11,7 +11,7 @@
     <h1>List of all text files</h1>
     <ul>
         {% for file in files %}
-            <li><a href="{{ url_for('view_file', filename=file) }}">{{ file }}</a></li>
+            <li><a href="{{ url_for('list_files') }}">{{ file }}</a></li>
         {% endfor %}
     </ul>
     <br>
