@@ -11,7 +11,7 @@ app = Flask(__name__)
 key_path = 'C:\\Users\\taku0\\OneDrive\\デスクトップ\\tasks\\main\\service_account_key.json'
 
 # クライアントを初期化し、認証情報を設定します
-storage_client = storage.Client.from_service_account_json(key_path)
+storage_client = storage.Client.from_service_account_json()
 bucket_name = 'text_upload'
 bucket = storage_client.bucket(bucket_name)
 
