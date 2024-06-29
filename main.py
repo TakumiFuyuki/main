@@ -9,10 +9,12 @@ app = Flask(__name__)
 
 # サービスアカウントキーの JSON ファイルのパスを指定します
 key_path = '/Users/taku0/OneDrive/Desktop/tasks/main/service_account_key.json'
+# あなたのプロジェクト ID を指定
+project_id = 'my-project-46138-427502'
 
 # クライアントを初期化し、認証情報を設定します
-# storage_client = storage.Client.from_service_account_json(key_path)
-storage_client = storage.Client()
+storage_client = storage.Client.from_service_account_json(key_path, project=project_id)
+# storage_client = storage.Client()
 bucket_name = 'text_upload'
 bucket = storage_client.bucket(bucket_name)
 
