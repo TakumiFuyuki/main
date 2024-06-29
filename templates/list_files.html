@@ -1,5 +1,3 @@
-<!-- templates/list_files.html -->
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,7 +9,10 @@
     <h1>List of all text files</h1>
     <ul>
         {% for file in files %}
-            <li><a href="{{ url_for('list_files') }}">{{ file }}</a></li>
+            <li>
+                {{ file }}
+                <a href="{{ url_for('download_file', filename=file) }}">Download</a>
+            </li>
         {% endfor %}
     </ul>
     <br>

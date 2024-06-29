@@ -1,6 +1,6 @@
 # main.py
 
-from flask import Flask, request, redirect, url_for, render_template
+from flask import Flask, request, redirect, url_for, render_template, send_file
 from google.cloud import storage
 import os
 
@@ -42,6 +42,13 @@ def list_files():
             file_list.append(blob.name)
 
     return render_template('list_files.html', files=file_list)
+
+@app.route('/download/<filename>')
+def download_file(filename):
+    blob = bucket.blob(filename)
+    file_path = os.path.join('/tmp', filename)
+    blob.download_to_filename(file_path)
+    return send_file(file_path, as_attachment=True, attachment_filename=filename)
 
 if __name__ == '__main__':
     app.run(port=8080)
