@@ -36,13 +36,14 @@ def upload_file():
 @app.route('/list')
 def list_files():
     # blobs = bucket.list_blobs()
-    file_list = ['おは']
+    # file_list = ['おは']
     # for blob in blobs:
     #     if blob.name.endswith('.txt'):
     #         file_list.append(blob.name)
 
-    # return render_template('list_files.html', files=file_list)
-    return render_template('list_files.html')
+    file_list =['oha', 'kon']
+
+    return render_template('list_files.html', files=file_list)
 
 if __name__ == '__main__':
     app.run(port=8080)
