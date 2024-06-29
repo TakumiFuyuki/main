@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 app = Flask(__name__)
 
 # サービスアカウントキーの JSON ファイルのパスを指定します
-key_path = 'service_account_key.json'
+key_path = 'service_account_key'
 # あなたのプロジェクト ID を指定
 project_id = 'my-project-46138-427502'
 
