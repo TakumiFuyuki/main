@@ -48,7 +48,7 @@ def download_file(filename):
     blob = bucket.blob(filename)
     file_path = os.path.join('/tmp', filename)
     blob.download_to_filename(file_path)
-    return send_file(file_path, as_attachment=True, attachment_filename=filename)
+    return send_file(file_path, as_attachment=True)
 
 if __name__ == '__main__':
     app.run(port=8080)
