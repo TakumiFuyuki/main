@@ -19,7 +19,7 @@ app = Flask(__name__)
 # print("Current working directory:", os.getcwd())
 
 # サービスアカウントキーの JSON ファイルのパスを環境変数に設定します
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C://Users//taku0//OneDrive//Desktop//tasks//main//service_account_key.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C://Users//taku0//OneDrive//デスクトップ//tasks//main//service_account_key.json"
 
 # クライアントを初期化し、認証情報を設定します
 # storage_client = storage.Client.from_service_account_json(key_path, project=project_id)
