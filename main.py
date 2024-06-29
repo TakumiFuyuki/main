@@ -42,7 +42,7 @@ def list_files():
     #         file_list.append(blob.name)
 
     # return render_template('list_files.html', files=file_list)
-    return 'kon'
+    return render_template('list_files.html')
 
 if __name__ == '__main__':
     app.run(port=8080)
