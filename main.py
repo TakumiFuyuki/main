@@ -7,14 +7,23 @@ from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
-# サービスアカウントキーの JSON ファイルのパスを指定します
-key_path = 'service_account_key'
-# あなたのプロジェクト ID を指定
-project_id = 'my-project-46138-427502'
+# # サービスアカウントキーの JSON ファイルのパスを指定します
+# key_path = 'C:\\Users\\taku0\\OneDrive\\デスクトップ\\tasks\\main\\service_account_key.json'
+# # あなたのプロジェクト ID を指定
+# project_id = 'my-project-46138-427502'
+
+# # JSONファイルが存在するか確認
+# if os.path.exists(key_path):
+#     print('kon')
+
+# print("Current working directory:", os.getcwd())
+
+# サービスアカウントキーの JSON ファイルのパスを環境変数に設定します
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C://Users//taku0//OneDrive//Desktop//tasks//main//service_account_key.json"
 
 # クライアントを初期化し、認証情報を設定します
-storage_client = storage.Client.from_service_account_json(key_path, project=project_id)
-# storage_client = storage.Client()
+# storage_client = storage.Client.from_service_account_json(key_path, project=project_id)
+storage_client = storage.Client()
 bucket_name = 'text_upload'
 bucket = storage_client.bucket(bucket_name)
 
