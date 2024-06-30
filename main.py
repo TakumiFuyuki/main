@@ -62,10 +62,10 @@ def download_file(filename):
 #         version="v4",
 #         expiration=expiration,
 #         method="GET",
-    )
+#     )
 
-    # 生成したURLをリダイレクトしてダウンロードさせる
-    return redirect(signed_url)
+#     # 生成したURLをリダイレクトしてダウンロードさせる
+#     return redirect(signed_url)
 
 if __name__ == '__main__':
     app.run(port=8080)
