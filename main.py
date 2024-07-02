@@ -12,27 +12,29 @@ storage_client = storage.Client()
 bucket_name = 'text_upload'
 bucket = storage_client.bucket(bucket_name)
 
-@app.route('/')
-def hello():
-    return render_template('upload.html')
+@app.route('/', methods=['GET'])
+def index():
+    return render_template('index.html')
 
-@app.route('/upload', methods=['POST'])
+@app.route('/upload', methods=['GET','POST'])
 def upload_file():
-    file = request.files['file']
-    if file and file.filename.endswith('.txt'):
-        # ファイルを一時的に保存
-        file_path = os.path.join('/tmp', file.filename)
-        file.save(file_path)
+    if request.methods == 'POST':
+        file = request.files['file']
+        if file and file.filename.endswith('.txt'):
+            # ファイルを一時的に保存
+            file_path = os.path.join('/tmp', file.filename)
+            file.save(file_path)
 
-        # クラウドストレージにアップロード
-        blob = bucket.blob(file.filename)
-        blob.upload_from_filename(file_path)
+            # クラウドストレージにアップロード
+            blob = bucket.blob(file.filename)
+            blob.upload_from_filename(file_path)
 
-        # 一時ファイルを削除
-        os.remove(file_path)
+            # 一時ファイルを削除
+            os.remove(file_path)
 
-        return redirect(url_for('list_files'))
-    return '無効なファイル形式です。'
+            return redirect(url_for('list_files'))
+        return '無効なファイル形式です。'
+    return render_template('upload.html')
 
 @app.route('/list')
 def list_files():
