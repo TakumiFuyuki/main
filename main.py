@@ -16,6 +16,14 @@ bucket = storage_client.bucket(bucket_name)
 def index():
     return render_template('index.html')
 
+@app.route('/register', methods=['GET'])
+def index():
+    return render_template('register.html')
+
+@app.route('/login', methods=['GET'])
+def index():
+    return render_template('login.html')
+
 @app.route('/upload', methods=['GET','POST'])
 def upload_file():
     if request.methods == 'POST':
