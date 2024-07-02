@@ -1,0 +1,44 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ホームページ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+        }
+        .header a {
+            text-decoration: none;
+            color: #007bff;
+            margin-left: 15px;
+            font-size: 16px;
+        }
+        .container {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="/login">ログイン</a>
+        <a href="/register">登録</a>
+    </header>
+    <div class="container">
+        <h1>ようこそ</h1>
+        <p>ここにコンテンツを追加します。</p>
+    </div>
+</body>
+</html>
