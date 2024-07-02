@@ -26,6 +26,14 @@
         h1 {
             margin-bottom: 20px;
         }
+        .flash {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
         label {
             display: block;
             margin-bottom: 5px;
@@ -60,7 +68,16 @@
 <body>
     <div class="form-container">
         <h1>登録</h1>
-        <form action="/register" method="post">
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash">
+              {% for message in messages %}
+                <p>{{ message }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
+        {% endwith %}
+        <form action="{{ url_for('register') }}" method="post">
             <label for="email">メールアドレス:</label>
             <input type="email" id="email" name="email" required>
             <label for="password">パスワード:</label>
@@ -68,7 +85,7 @@
             <input type="submit" value="登録">
         </form>
         <div class="switch-container">
-            <p>既にアカウントをお持ちですか？ <a href="/login">ログイン</a></p>
+            <p>既にアカウントをお持ちですか？ <a href="{{ url_for('login') }}">ログイン</a></p>
         </div>
     </div>
 </body>
