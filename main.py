@@ -17,11 +17,11 @@ def index():
     return render_template('index.html')
 
 @app.route('/register', methods=['GET'])
-def index():
+def register():
     return render_template('register.html')
 
 @app.route('/login', methods=['GET'])
-def index():
+def login():
     return render_template('login.html')
 
 @app.route('/upload', methods=['GET','POST'])
