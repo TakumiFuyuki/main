@@ -34,10 +34,9 @@ def register():
         if utils.is_email_registered(email):
             flash('このメールアドレスはすでに登録されています。')
             return redirect(url_for('register'))
-        utils.insert_register_to_bigquery(email, button_time, password)
+        utils.insert_registration_to_bigquery(email, button_time, password)
         flash('登録が完了しました。ログインしてください。')
-        return 'a'
-        # return redirect(url_for('login'))
+        return redirect(url_for('login'))
     return render_template('register.html')
 
 
