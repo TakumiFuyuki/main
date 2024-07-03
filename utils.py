@@ -1,6 +1,11 @@
 # utils.py
 
 import re
+from google.cloud import storage, bigquery
+
+# クライアントを初期化し、認証情報を設定します
+bigquery_client = bigquery.Client()
+storage_client = storage.Client()
 
 def is_valid_password(password):
     if len(password) < 4:
@@ -23,7 +28,7 @@ def is_email_registered(email, dataset_name , register_table, bigquery_client):
             return True
     return False
 
-def insert_registration_to_bigquery(email, button_time, password, dataset_name, register_table, bigquery_client):
+def insert_registration_to_bigquery(email, button_time, password, dataset_name, register_table):
     button_time_iso = button_time.isoformat()
     rows_to_insert = [
         {
