@@ -1,16 +1,6 @@
 # utils.py
 
-from google.cloud import bigquery, storage
 import re
-
-# クライアントを初期化し、認証情報を設定します
-bigquery_client = bigquery.Client()
-storage_client = storage.Client()
-
-dataset_name = 'my-project-46138-427502.dataset'
-register_table = 'register'
-bucket_name = 'text_upload'
-bucket = storage_client.bucket(bucket_name)
 
 def is_valid_password(password):
     if len(password) < 4:
@@ -21,10 +11,10 @@ def is_valid_password(password):
         return False
     return True
 
-def is_email_registered(email):
+def is_email_registered(email, dataset_name , register_table, bigquery_client):
     query = f"""
     SELECT COUNT(1) as count FROM `{dataset_name}.{register_table}`
-    WHERE id = '{email}'
+    WHERE e-mail = '{email}'
     """
     query_job = bigquery_client.query(query)
     results = query_job.result()
@@ -33,12 +23,12 @@ def is_email_registered(email):
             return True
     return False
 
-def insert_register_to_bigquery(email, button_time, password):
+def insert_registration_to_bigquery(email, button_time, password, dataset_name, register_table, bigquery_client):
     button_time_iso = button_time.isoformat()
     rows_to_insert = [
         {
-            'id': email,
             'datetime': button_time_iso,
+            'e-mail': email,
             'password': password
         }
     ]
@@ -47,10 +37,10 @@ def insert_register_to_bigquery(email, button_time, password):
     if errors:
         raise Exception(f'BigQueryへのデータ挿入中にエラーが発生しました: {errors}')
 
-def authenticate_user(email, password):
+def authenticate_user(email, password, dataset_name, register_table, bigquery_client):
     query = f"""
     SELECT password FROM `{dataset_name}.{register_table}`
-    WHERE id = '{email}'
+    WHERE e-mail = '{email}'
     """
     query_job = bigquery_client.query(query)
     results = query_job.result()

@@ -36,7 +36,8 @@ def register():
             return redirect(url_for('register'))
         utils.insert_register_to_bigquery(email, button_time, password)
         flash('登録が完了しました。ログインしてください。')
-        return redirect(url_for('login'))
+        return 'a'
+        # return redirect(url_for('login'))
     return render_template('register.html')
 
 
