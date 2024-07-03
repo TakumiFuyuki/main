@@ -16,7 +16,7 @@ def is_valid_password(password):
         return False
     return True
 
-def is_email_registered(email, dataset_name , register_table, bigquery_client):
+def is_email_registered(email, dataset_name , register_table):
     query = f"""
     SELECT COUNT(1) as count FROM `{dataset_name}.{register_table}`
     WHERE e-mail = '{email}'
@@ -42,7 +42,7 @@ def insert_registration_to_bigquery(email, button_time, password, dataset_name, 
     if errors:
         raise Exception(f'BigQueryへのデータ挿入中にエラーが発生しました: {errors}')
 
-def authenticate_user(email, password, dataset_name, register_table, bigquery_client):
+def authenticate_user(email, password, dataset_name, register_table):
     query = f"""
     SELECT password FROM `{dataset_name}.{register_table}`
     WHERE e-mail = '{email}'

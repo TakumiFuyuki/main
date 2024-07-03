@@ -45,7 +45,7 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-        if not utils.authenticate_user(email, password, dataset_name, register_table, bigquery_client):
+        if not utils.authenticate_user(email, password, dataset_name, register_table):
             flash('メールアドレスかパスワードが異なります。')
             return redirect(url_for('login'))
         else:
