@@ -20,7 +20,6 @@ bucket = storage_client.bucket(bucket_name)
 
 @app.route('/', methods=['GET'])
 def index():
-
     return render_template('index.html')
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -32,13 +31,14 @@ def register():
         if not utils.is_valid_password(password):
             flash('パスワードは4文字以上で、アルファベットと数字が少なくとも1文字以上含まれている必要があります。')
             return redirect(url_for('register'))
-        if utils.is_email_registered(email, dataset_name , register_table, bigquery_client):
+        if utils.is_email_registered(email):
             flash('このメールアドレスはすでに登録されています。')
             return redirect(url_for('register'))
-        utils.insert_register_to_bigquery(email, button_time, password, dataset_name, register_table, bigquery_client)
+        utils.insert_register_to_bigquery(email, button_time, password)
         flash('登録が完了しました。ログインしてください。')
         return redirect(url_for('login'))
     return render_template('register.html')
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
