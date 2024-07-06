@@ -49,7 +49,8 @@ def login():
             flash('メールアドレスかパスワードが異なります。')
             return redirect(url_for('login'))
         else:
-            return redirect(url_for('upload_file'))
+            return 'a'
+            # return redirect(url_for('upload_file'))
     return render_template('login.html')
 
 @app.route('/upload', methods=['GET','POST'])
