@@ -1,19 +1,32 @@
 <!-- templates/upload.html -->
 
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload a text file</title>
+    <title>ファイルアップロード</title>
+    <style>
+        /* 既存のスタイル */
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Upload a text file</h1>
+    <button class="logout-button" onclick="window.location.href='/logout'">ログアウト</button>
+    <h1>ファイルアップロード</h1>
     <form action="/upload" method="post" enctype="multipart/form-data">
-      <input type="file" name="file" accept=".txt">
-      <input type="submit" value="Upload">
+        <input type="file" name="file" required>
+        <input type="submit" value="アップロード">
     </form>
-    <br>
-    <a href="/list">List all files</a>
 </body>
 </html>

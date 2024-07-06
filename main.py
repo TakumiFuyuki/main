@@ -1,6 +1,6 @@
 # main.py
 
-from flask import Flask, request, redirect, url_for, render_template, send_file, flash
+from flask import Flask, request, redirect, url_for, render_template, send_file, flash, session
 from google.cloud import storage, bigquery
 import os
 from datetime import datetime, timedelta
@@ -51,6 +51,12 @@ def login():
         else:
             return redirect(url_for('upload_file'))
     return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    # session.pop('user', None)  # セッションからユーザー情報を削除
+    flash('ログアウトしました。')
+    return redirect(url_for('login'))
 
 @app.route('/upload', methods=['GET','POST'])
 def upload_file():
