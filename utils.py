@@ -19,7 +19,7 @@ def is_valid_password(password):
 def is_email_registered(email, dataset_name , register_table):
     query = f"""
     SELECT COUNT(1) as count FROM `{dataset_name}.{register_table}`
-    WHERE e-mail = '{email}'
+    WHERE email = '{email}'
     """
     query_job = bigquery_client.query(query)
     results = query_job.result()
@@ -33,7 +33,7 @@ def insert_registration_to_bigquery(email, button_time, password, dataset_name, 
     rows_to_insert = [
         {
             'datetime': button_time_iso,
-            'e-mail': email,
+            'email': email,
             'password': password
         }
     ]
@@ -45,7 +45,7 @@ def insert_registration_to_bigquery(email, button_time, password, dataset_name, 
 def authenticate_user(email, password, dataset_name, register_table):
     query = f"""
     SELECT password FROM `{dataset_name}.{register_table}`
-    WHERE e-mail = '{email}'
+    WHERE email = '{email}'
     """
     query_job = bigquery_client.query(query)
     results = query_job.result()
