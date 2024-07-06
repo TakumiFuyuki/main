@@ -54,7 +54,7 @@ def login():
 
 @app.route('/upload', methods=['GET','POST'])
 def upload_file():
-    if request.methods == 'POST':
+    if request.method == 'POST':
         file = request.files['file']
         if file and file.filename.endswith('.txt'):
             # ファイルを一時的に保存
