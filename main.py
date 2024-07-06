@@ -49,12 +49,13 @@ def login():
             flash('メールアドレスかパスワードが異なります。')
             return redirect(url_for('login'))
         else:
+            session['logged_in'] = True
             return redirect(url_for('upload_file'))
     return render_template('login.html')
 
 @app.route('/logout')
 def logout():
-    # session.pop('user', None)  # セッションからユーザー情報を削除
+    session.pop('logged_in', None)
     flash('ログアウトしました。')
     return redirect(url_for('login'))
 
