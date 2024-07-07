@@ -91,6 +91,33 @@ def upload_file():
         return '無効なファイル形式です。'
     return render_template('upload.html')
 
+# @app.route('/list', methods=['GET'])
+# def list_files():
+#     if not session.get('logged_in'):
+#         flash('セッションが切れました')
+#         return redirect(url_for('login'))
+
+#     email = session.get('user')
+
+#     # BigQuery から該当ユーザーのファイルリストを取得
+#     query = f"""
+#         SELECT filename FROM `{dataset_name}.upload_file`
+#         WHERE email = '{email}'
+#     """
+
+#     query_job = bigquery_client.query(query)
+#     results = query_job.result()
+
+#     blobs = bucket.list_blobs()
+#     file_list = []
+#     for blob in blobs:
+#         for row in results:
+#             if blob == row.filename:
+#                 if blob.name.endswith('.txt'):
+#                     file_list.append(blob.name)
+
+#     return render_template('list_files.html', files=file_list)
+
 @app.route('/list', methods=['GET'])
 def list_files():
     if not session.get('logged_in'):
@@ -108,13 +135,14 @@ def list_files():
     query_job = bigquery_client.query(query)
     results = query_job.result()
 
+    # ファイル名のリストを作成
+    file_names = [row['filename'] for row in results]
+
     blobs = bucket.list_blobs()
     file_list = []
     for blob in blobs:
-        for row in results:
-            if blob == row.filename:
-                if blob.name.endswith('.txt'):
-                    file_list.append(blob.name)
+        if blob.name.endswith('.txt') and blob.name in file_names:
+            file_list.append(blob.name)
 
     return render_template('list_files.html', files=file_list)
 
