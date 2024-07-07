@@ -82,7 +82,7 @@ def upload_file():
             # BigQuery にレコードを挿入
             email = session.get('user')
             upload_time = datetime.now()
-            utils.insert_file_upload_to_bigquery(email, file.filename, upload_time, dataset_name, upload_file_table)
+            utils.insert_file_upload_to_bigquery(email, upload_time, file.filename, dataset_name, upload_file_table)
 
             # 一時ファイルを削除
             os.remove(file_path)
