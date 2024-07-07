@@ -63,7 +63,7 @@ def logout():
 def upload_file():
     if not session.get('logged_in'):
         flash('セッションが切れました')
-        return render_template('login')
+        return redirect(url_for('login'))
 
     if request.method == 'POST':
         file = request.files['file']
@@ -87,7 +87,7 @@ def upload_file():
 def list_files():
     if not session.get('logged_in'):
         flash('セッションが切れました')
-        return render_template('login')
+        return redirect(url_for('login'))
 
     blobs = bucket.list_blobs()
     file_list = []
@@ -101,7 +101,7 @@ def list_files():
 def download_file(filename):
     if not session.get('logged_in'):
         flash('セッションが切れました')
-        return render_template('login')
+        return redirect(url_for('login'))
 
     blob = bucket.blob(filename)
     file_path = os.path.join('/tmp', filename)
