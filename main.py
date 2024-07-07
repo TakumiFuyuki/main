@@ -15,6 +15,7 @@ storage_client = storage.Client()
 
 dataset_name = 'my-project-46138-427502.dataset'
 register_table = 'register'
+upload_file_table = 'upload_file'
 bucket_name = 'text_upload'
 bucket = storage_client.bucket(bucket_name)
 
@@ -50,12 +51,14 @@ def login():
             return redirect(url_for('login'))
         else:
             session['logged_in'] = True
+            session['user'] = email
             return redirect(url_for('upload_file'))
     return render_template('login.html')
 
 @app.route('/logout')
 def logout():
     session.pop('logged_in', None)
+    session.pop('user', None)
     flash('ログアウトしました。')
     return redirect(url_for('login'))
 
@@ -75,6 +78,11 @@ def upload_file():
             # クラウドストレージにアップロード
             blob = bucket.blob(file.filename)
             blob.upload_from_filename(file_path)
+
+            # BigQuery にレコードを挿入
+            email = session.get('user')
+            upload_time = datetime.now()
+            utils.insert_file_upload_to_bigquery(email, file.filename, upload_time, dataset_name, upload_file_table)
 
             # 一時ファイルを削除
             os.remove(file_path)
