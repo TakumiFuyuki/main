@@ -97,11 +97,24 @@ def list_files():
         flash('セッションが切れました')
         return redirect(url_for('login'))
 
+    email = session.get('user')
+
+    # BigQuery から該当ユーザーのファイルリストを取得
+    query = f"""
+        SELECT filename FROM `{dataset_name}.upload_file`
+        WHERE email = '{email}'
+    """
+
+    query_job = bigquery_client.query(query)
+    results = query_job.result()
+
     blobs = bucket.list_blobs()
     file_list = []
     for blob in blobs:
-        if blob.name.endswith('.txt'):
-            file_list.append(blob.name)
+        for row in results:
+            if blob == row.filename:
+                if blob.name.endswith('.txt'):
+                    file_list.append(blob.name)
 
     return render_template('list_files.html', files=file_list)
 
