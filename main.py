@@ -61,6 +61,10 @@ def logout():
 
 @app.route('/upload', methods=['GET','POST'])
 def upload_file():
+    if not session.get('logged_in'):
+        flash('セッションが切れました')
+        return render_template('login')
+
     if request.method == 'POST':
         file = request.files['file']
         if file and file.filename.endswith('.txt'):
@@ -79,8 +83,12 @@ def upload_file():
         return '無効なファイル形式です。'
     return render_template('upload.html')
 
-@app.route('/list')
+@app.route('/list', methods=['GET'])
 def list_files():
+    if not session.get('logged_in'):
+        flash('セッションが切れました')
+        return render_template('login')
+
     blobs = bucket.list_blobs()
     file_list = []
     for blob in blobs:
@@ -89,8 +97,12 @@ def list_files():
 
     return render_template('list_files.html', files=file_list)
 
-@app.route('/download/<filename>')
+@app.route('/download/<filename>', methods=['GET'])
 def download_file(filename):
+    if not session.get('logged_in'):
+        flash('セッションが切れました')
+        return render_template('login')
+
     blob = bucket.blob(filename)
     file_path = os.path.join('/tmp', filename)
     blob.download_to_filename(file_path)
