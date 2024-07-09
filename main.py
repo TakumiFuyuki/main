@@ -3,7 +3,6 @@
 from flask import Flask, request, redirect, url_for, render_template, send_file, flash, session
 from google.cloud import storage, bigquery
 import os
-from uuid import uuid4
 from datetime import datetime, timedelta
 import utils
 
@@ -73,10 +72,13 @@ def upload_file():
         file = request.files['file']
         if file and file.filename.endswith('.txt'):
             # ファイルを一時的に保存
+            # ファイルを一時的に保存
             original_filename = file.filename
-            unique_filename = f"{uuid4()}_{original_filename}"
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            unique_filename = f"{timestamp}_{original_filename}"
             file_path = os.path.join('/tmp', unique_filename)
             file.save(file_path)
+
 
             # クラウドストレージにアップロード
             blob = bucket.blob(file.filename)
