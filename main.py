@@ -72,22 +72,20 @@ def upload_file():
         file = request.files['file']
         if file and file.filename.endswith('.txt'):
             # ファイルを一時的に保存
-            # ファイルを一時的に保存
             original_filename = file.filename
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             unique_filename = f"{timestamp}_{original_filename}"
             file_path = os.path.join('/tmp', unique_filename)
             file.save(file_path)
 
-
             # クラウドストレージにアップロード
-            blob = bucket.blob(file.filename)
+            blob = bucket.blob(unique_filename)
             blob.upload_from_filename(file_path)
 
             # BigQuery にレコードを挿入
             email = session.get('user')
             upload_time = datetime.now()
-            utils.insert_file_upload_to_bigquery(email, upload_time, file.filename, dataset_name, upload_file_table)
+            utils.insert_file_upload_to_bigquery(email, upload_time, unique_filename, dataset_name, upload_file_table)
 
             # 一時ファイルを削除
             os.remove(file_path)
